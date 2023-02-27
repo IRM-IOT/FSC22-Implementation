@@ -24,29 +24,35 @@ def record_audio(sharedlst):
 def feature_extractor(audiolst,mfcclst):
     while True:
         if (len(audiolst)>0):
-            audio = audiolst.pop(0)
-            mfcc_original = librosa.core.power_to_db(librosa.feature.mfcc(y=audio[1], sr=22050, n_mfcc=40))
-            mfccs_scaled_features = np.mean(mfcc_original.T,axis=0)
-            mfcclst.append([audio[0],mfccs_scaled_features])
-            print("mfcc " + str(audio[0]) + " done")
+            raw_audio = audiolst.pop(0)
+
+            feature_1 = librosa.power_to_db(librosa.feature.melspectrogram(y=raw_audio[1], sr=22050, n_mels=128, n_fft=2048, hop_length=512))
+            feature_2 = librosa.power_to_db(librosa.feature.melspectrogram(y=raw_audio[1], sr=22050, n_mels=128, n_fft=1024, hop_length=512))
+            feature_3 = librosa.power_to_db(librosa.feature.melspectrogram(y=raw_audio[1], sr=22050, n_mels=128, n_fft=512, hop_length=512))
+
+            three_chanel = np.stack((feature_1, feature_2, feature_3), axis=2) 
+
+            feature = np.expand_dims(three_chanel, axis=0)
+
+            print(np.shape(feature))
+
+            mfcclst.append([raw_audio[0],feature])
+            print("mfcc " + str(raw_audio[0]) + " done")
         else:
             continue
 
 
 
 def classify(mfcclst):
-    classifire_model = load_model("model")
-    f = open("decisions.txt", "a")
+    # print("came here")
+    classifire_model = load_model("mel-model")
     while True:
         if (len(mfcclst)>0):
             feature = mfcclst.pop(0)
             label = classifire_model.predict(feature[1])
-            labell = str(label[0][0]) + "  " + str(label[0][1]) + "  " + str(label[0][2])
-            f.write(str("audio-" + str(feature[0]) + " is " + labell + "\n"))
-            print(feature[0],label)
+            print(feature[0],np.argmax(label))
         else:
             continue
-    f.close()
 
             
 if __name__ == "__main__":
