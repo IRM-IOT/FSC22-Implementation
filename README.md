@@ -1,6 +1,25 @@
 # FSC22-Implementation
 
-Create an environment - python3 -m venv env 
-Activate - source env/bin/activate 
+### Create the environment
 
-To run - python app.py
+```
+    python3 -m venv env 
+```
+
+### Activate the environment
+
+```
+    source env/bin/activate
+```
+
+### Install the requirements
+
+```
+    pip3 install -r requirements.txt
+```
+
+### Run the app
+
+```
+    python app.py
+```
