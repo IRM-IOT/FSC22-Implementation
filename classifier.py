@@ -3,7 +3,7 @@ import numpy as np
 
 def classify(featurelst):
     f = open("predictions.txt", "a")
-    classifire_model = load_model("mel-model")
+    classifire_model = load_model("mel-model-19")
     while True:
         if (len(featurelst)>0):
             feature = featurelst.pop(0)
