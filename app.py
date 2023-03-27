@@ -4,9 +4,12 @@ from multiprocessing import Manager
 from recorder import record_audio
 from extractor import feature_extractor
 from classifier import classify
+from setup import setup
 
 
 if __name__ == "__main__":
+
+    # setup()
 
     manager = Manager()
     audio_list = manager.list()

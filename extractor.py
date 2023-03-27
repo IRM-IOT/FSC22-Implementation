@@ -17,6 +17,6 @@ def feature_extractor(audiolst,mfcclst):
             print(np.shape(feature))
 
             mfcclst.append([raw_audio[0],feature])
-            print("mfcc " + str(raw_audio[0]) + " done")
+            print("mel" + str(raw_audio[0]) + " done")
         else:
             continue
