@@ -22,8 +22,8 @@ def record_audio(sharedlst):
         peak_loudness = clip_rms.argmax()
 
         if ((float(peak_loudness)/float(base_loudness))>1):
-            sharedlst.append([i,recording.flatten()])
             wv.write(audio_name, recording, freq, sampwidth=2)
+            sharedlst.append(audio_name)
             print("audio " + str(i) + " done")
         else:
             print("skipping due to low loudness levels for audio :",i)
