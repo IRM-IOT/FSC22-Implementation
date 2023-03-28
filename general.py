@@ -1,10 +1,8 @@
 from keras.models import load_model
 import numpy as np
+import librosa
 
 class_names = ["Fire","Rain","Thunderstorm","Wind","Tree Falling","Engine","Axe","Chainsaw","Handsaw","Gun shot","Speaking","Footsteps","Insect","Frog","Bird Chirp", "Wing Flap", "Lion", "Wolf", "Squirrel"]	
-
-import librosa
-import numpy as np
 
 def feature_extractor(audio_name):
             
