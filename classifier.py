@@ -10,7 +10,11 @@ def classify(featurelst):
         if (len(featurelst)>0):
             feature = featurelst.pop(0)
             label = classifire_model.predict(feature[1])
-            f.write("{0} -- {1}\n".format(feature[0], class_names[np.argmax(label)]))
-            print(feature[0],class_names[np.argmax(label)])
+
+            max_index = np.argmax(label[0])
+            max_prob = max(label[0])
+            
+            f.write("{0} -- {1}\n".format(feature[0], class_names[max_index], max_prob))
+            print(feature[0],class_names[np.argmax(label)],max_prob)
         else:
             continue

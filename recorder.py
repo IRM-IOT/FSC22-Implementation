@@ -1,31 +1,25 @@
-import sounddevice as sd
-import wavio as wv
-import librosa
+import pyaudio
 
-import configparser
+chunk = 1024  # Record in chunks of 1024 samples
+sample_format = pyaudio.paInt16  # 16 bits per sample
+channels = 1
+fs = 22050  # Record at 44100 samples per second
+seconds = 5
 
-config = configparser.ConfigParser()
-config.read("config.ini")
-base_loudness = config.get('Env Settings', 'Loudness')
+p = pyaudio.PyAudio()  # Create an interface to PortAudio
+
+print('Recording')
+
+stream = p.open(format=sample_format,
+                channels=channels,
+                rate=fs,
+                frames_per_buffer=chunk,
+                input=True)
+
+frames = []  # Initialize array to store frames
 
 def record_audio(sharedlst):
     i=1
     while True:
-        audio_name = "audios/audio-" + str(i) + ".wav"
-        freq = 22050
-        duration = 5
-        recording = sd.rec(int(duration * freq), samplerate=freq, channels=1)
-        sd.wait()
-
-        clip_rms = librosa.feature.rms(y=recording,hop_length=512)
-        clip_rms = clip_rms.squeeze()
-        peak_loudness = clip_rms.argmax()
-
-        if ((float(peak_loudness)/float(base_loudness))>1):
-            wv.write(audio_name, recording, freq, sampwidth=2)
-            sharedlst.append(audio_name)
-            print("audio " + str(i) + " done")
-        else:
-            print("skipping due to low loudness levels for audio :",i)
-            
-        i=i+1
+        data = stream.read(chunk)
+        sharedlst.append(data)
