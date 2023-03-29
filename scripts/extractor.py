@@ -1,10 +1,10 @@
 import librosa
 import numpy as np
 
-def feature_extractor(audiolst,mfcclst):
+def feature_extractor(audioNames,mfcclst):
     while True:
-        if (len(audiolst)>0):
-            audio_name = audiolst.pop(0)
+        if (len(audioNames)>0):
+            audio_name = audioNames.pop(0)
             normalised_audio, sr = librosa.load(audio_name, sr=22050, mono=True)
 
             feature_1 = librosa.power_to_db(librosa.feature.melspectrogram(y=normalised_audio, sr=22050, n_mels=128, n_fft=2048, hop_length=512))
