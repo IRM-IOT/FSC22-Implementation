@@ -32,22 +32,22 @@ def feature_extractor(audio_name):
 class_names = ["Fire","Rain","Thunderstorm","Wind","Tree Falling","Engine","Axe","Chainsaw","Handsaw","Gun shot","Speaking","Footsteps","Insect","Frog","Bird Chirp", "Wing Flap", "Lion", "Wolf", "Squirrel"]	
 model_path = "lite_model.tflite" 
 
-interpreter = Interpreter(model_path=model_path)
+inp = Interpreter(model_path=model_path)
 
 print("n--------Input Details of Model-------------------n")
-input_details = interpreter.get_input_details()
+input_details = inp.get_input_details()
 print(input_details)
 
 print("n--------Output Details of Model-------------------n")
-output_details = interpreter.get_output_details()
+output_details = inp.get_output_details()
 print(output_details)
 
 # Now allocate tensors so that we can use the set_tensor() method to feed the processed_image
-interpreter.allocate_tensors()
+inp.allocate_tensors()
 #print(input_details[0]['index'])
-interpreter.set_tensor(input_details[0]['index'], feature_extractor("test_audio.wav"))
+inp.set_tensor(input_details[0]['index'], feature_extractor("test_audio.wav"))
 
-interpreter.invoke()
-predictions = interpreter.get_tensor(output_details[0]['index'])[0]
+inp.invoke()
+predictions = inp.get_tensor(output_details[0]['index'])[0]
 
 print(predictions)
