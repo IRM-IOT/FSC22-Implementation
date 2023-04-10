@@ -5,7 +5,7 @@ class_names = ["Fire","Rain","Thunderstorm","Wind","Tree Falling","Engine","Axe"
 
 def classify(featurelst):
     f = open("predictions.txt", "a")
-    classifire_model = load_model("mel-model-19")
+    classifire_model = load_model("mel-model")
     while True:
         if (len(featurelst)>0):
             feature = featurelst.pop(0)

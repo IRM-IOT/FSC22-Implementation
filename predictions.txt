@@ -1,0 +1,22 @@
+audios/audio_1.wav -- Squirrel
+audios/audio_2.wav -- Wing Flap
+audios/audio_3.wav -- Squirrel
+audios/audio_4.wav -- Insect
+audios/audio_5.wav -- Wing Flap
+audios/audio_6.wav -- Fire
+audios/audio_7.wav -- Squirrel
+audios/audio_8.wav -- Wing Flap
+audios/audio_9.wav -- Fire
+audios/audio_10.wav -- Rain
+audios/audio_11.wav -- Squirrel
+audios/audio_12.wav -- Squirrel
+audios/audio_13.wav -- Wing Flap
+audios/audio_14.wav -- Rain
+audios/audio_15.wav -- Wind
+audios/audio_16.wav -- Wind
+audios/audio_17.wav -- Wing Flap
+audios/audio_18.wav -- Wind
+audios/audio_19.wav -- Wind
+audios/audio_20.wav -- Wind
+audios/audio_21.wav -- Wind
+audios/audio_22.wav -- Wind

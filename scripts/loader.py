@@ -23,7 +23,7 @@ def record_audio(audioIndex):
         frames.append(data)
 
         # Check if we have enough frames for a clip
-        if len(frames) > int(RATE * RECORD_SECONDS / CHUNK):
+        if len(frames) == int(RATE * RECORD_SECONDS / CHUNK):
             name = 'audios/audio_' + str(i) + '.wav'
             # Create a new thread to handle writing the clip to disk
             clip_thread = threading.Thread(target=write_clip, args=(frames,name))
