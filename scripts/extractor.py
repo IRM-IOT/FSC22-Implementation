@@ -1,15 +1,24 @@
 import librosa
 import numpy as np
+import noisereduce as nr
+from scipy import signal
 
-def feature_extractor(audioNames,mfcclst):
+def f_high(y,sr):
+    b,a = signal.butter(10, 2000/(sr/2), btype='highpass')
+    yf = signal.lfilter(b,a,y)
+    return yf
+
+def feature_extractor(audioIndex,features):
     while True:
-        if (len(audioNames)>0):
-            audio_name = audioNames.pop(0)
-            normalised_audio, sr = librosa.load(audio_name, sr=22050, mono=True)
+        if (len(audioIndex)>0):
+            audio_name = audioIndex.pop(0)
+            reduced_noise, sr = librosa.load(audio_name, sr=44100, mono=True, duration=5)
 
-            feature_1 = librosa.power_to_db(librosa.feature.melspectrogram(y=normalised_audio, sr=22050, n_mels=128, n_fft=2048, hop_length=512))
-            feature_2 = librosa.power_to_db(librosa.feature.melspectrogram(y=normalised_audio, sr=22050, n_mels=128, n_fft=1024, hop_length=512))
-            feature_3 = librosa.power_to_db(librosa.feature.melspectrogram(y=normalised_audio, sr=22050, n_mels=128, n_fft=512, hop_length=512))
+            # reduced_noise = nr.reduce_noise(y=normalised_audio, sr=sr, stationary=True, prop_decrease=0.8)
+
+            feature_1 = librosa.power_to_db(librosa.feature.melspectrogram(y=reduced_noise, sr=44100, n_mels=64, n_fft=2048, hop_length=512))
+            feature_2 = librosa.power_to_db(librosa.feature.melspectrogram(y=reduced_noise, sr=44100, n_mels=64, n_fft=1024, hop_length=512))
+            feature_3 = librosa.power_to_db(librosa.feature.melspectrogram(y=reduced_noise, sr=44100, n_mels=64, n_fft=512, hop_length=512))
 
             three_chanel = np.stack((feature_1, feature_2, feature_3), axis=2) 
 
@@ -17,7 +26,7 @@ def feature_extractor(audioNames,mfcclst):
 
             print(np.shape(feature))
 
-            mfcclst.append([audio_name,feature])
+            features.append([audio_name,feature])
             print("mel" + str(audio_name[0]) + " done")
         else:
             continue

@@ -3,12 +3,12 @@ import numpy as np
 
 class_names = ["Fire","Rain","Thunderstorm","Wind","Tree Falling","Engine","Axe","Chainsaw","Handsaw","Gun shot","Speaking","Footsteps","Insect","Frog","Bird Chirp", "Wing Flap", "Lion", "Wolf", "Squirrel","Ambient"]	
 
-def classify(featurelst):
+def classify(features):
     f = open("predictions.txt", "a")
     classifire_model = load_model("mel-model")
     while True:
-        if (len(featurelst)>0):
-            feature = featurelst.pop(0)
+        if (len(features)>0):
+            feature = features.pop(0)
             label = classifire_model.predict(feature[1])
 
             max_index = np.argmax(label[0])

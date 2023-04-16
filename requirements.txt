@@ -31,6 +31,7 @@ Markdown==3.4.1
 MarkupSafe==2.1.2
 matplotlib==3.7.0
 msgpack==1.0.4
+noisereduce==2.0.1
 numba==0.56.4
 numpy==1.23.5
 oauthlib==3.2.2
@@ -62,6 +63,7 @@ tensorflow-macos==2.11.0
 tensorflow-metal==0.7.1
 termcolor==2.2.0
 threadpoolctl==3.1.0
+tqdm==4.65.0
 typing_extensions==4.5.0
 urllib3==1.26.14
 wavio==0.0.7
