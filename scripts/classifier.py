@@ -1,15 +1,15 @@
-from keras.models import load_model
+from tensorflow import keras
 import numpy as np
 
-class_names = ["Fire","Rain","Thunderstorm","Wind","Tree Falling","Engine","Axe","Chainsaw","Handsaw","Gun shot","Speaking","Footsteps","Insect","Frog","Bird Chirp", "Wing Flap", "Lion", "Wolf", "Squirrel","Ambient"]	
+class_names = ["Fire","Rain","Thunderstorm","Wind","Tree Falling","Engine","Axe","Chainsaw","Handsaw","Gun shot","Speaking","Footsteps","Insect","Frog","Bird Chirp", "Wing Flap", "Lion", "Wolf", "Squirrel"]	
 
 def classify(features):
     f = open("predictions.txt", "a")
-    classifire_model = load_model("yam-model")
+    classifire_model = keras.models.load_model("mel-model")
     while True:
         if (len(features)>0):
             feature = features.pop(0)
-            label = classifire_model.predict(feature[1])
+            label = classifire_model.predict(feature)
 
             max_index = np.argmax(label[0])
             max_prob = max(label[0])

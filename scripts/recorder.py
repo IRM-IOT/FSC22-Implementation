@@ -22,14 +22,10 @@ def record_audio(audioIndex):
         data = stream.read(CHUNK)
         frames.append(data)
 
-        # Check if we have enough frames for a clip
         if len(frames) == int(RATE * RECORD_SECONDS / CHUNK):
             name = 'audios/audio_' + str(i) + '.wav'
-            # Create a new thread to handle writing the clip to disk
             clip_thread = threading.Thread(target=write_clip, args=(frames,name))
             clip_thread.start()
-
-            # Remove the frames that have been used in the clip
             frames = frames[int(RATE * RECORD_SECONDS * (1 - OVERLAP_RATIO) / CHUNK):]
             
             audioIndex.append(name)

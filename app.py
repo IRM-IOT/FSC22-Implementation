@@ -3,7 +3,6 @@ from multiprocessing import Manager
 
 from scripts.extractor import feature_extractor
 from scripts.classifier import classify
-from scripts.setup import setup
 from scripts.recorder import record_audio
 
 
